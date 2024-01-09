@@ -10,5 +10,4 @@ def check_starting_string_if_a(string):
 
 if __name__ == "__main__":
     sample_array_of_strings = ["Abhishek", "Sameer Trivedi", "Sankhanil Nayek", "Abhinav Modi", "Arravelly Keerthi "]
-    display_strings(filter_strings(strings, check_starting_string_if_a))
-
+    display_result_on_console(filter_strings(sample_array_of_strings, check_starting_string_if_a))
