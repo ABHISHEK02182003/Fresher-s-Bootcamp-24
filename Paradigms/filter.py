@@ -15,7 +15,7 @@ def create_ending_char_checker(char):
         return string[-1].lower() == char.lower()
     return check_ending_char
 
-if __name__ == "_main_":
+def main():
     sample_array_of_strings = ["Abhishek", "Sameer Trivedi", "Sankhanil Nayek", "Ishan Madan", "Arravelly Keerthi "]
 
     for char in ['a', 'd', 's', 'i']:
@@ -25,3 +25,7 @@ if __name__ == "_main_":
     for char in ['a', 'd', 's', 'i']:
         ending_char_check = create_ending_char_checker(char)
         display_result_on_console(filter_strings(sample_array_of_strings, ending_char_check))
+
+    
+if __name__ == "_main_":
+    main()
