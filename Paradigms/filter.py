@@ -4,6 +4,7 @@ def filter_strings(strings, checking_criteria):
 def display_result_on_console(array_of_results):
     for elements in array_of_results:
         print(elements)
+    print("")
 
 def check_starting_char_if_a(string):
     return string[0] == "A"
