@@ -12,6 +12,6 @@ def check_ending_char_if_i(string):
     return string[-1] == "i"
 
 if __name__ == "__main__":
-    sample_array_of_strings = ["Abhishek", "Sameer Trivedi", "Sankhanil Nayek", "Ishan Madan", "Arravelly Keerthi "]
+    sample_array_of_strings = ["Abhishek", "Sameer Trivedi", "Sankhanil Nayek", "Ishan Madan", "Arravelly Keerthi"]
     display_result_on_console(filter_strings(sample_array_of_strings, check_starting_char_if_a))
     display_result_on_console(filter_strings(sample_array_of_strings, check_ending_char_if_i))
