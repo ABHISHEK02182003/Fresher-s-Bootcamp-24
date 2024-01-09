@@ -5,7 +5,7 @@ def filter_elements(arr: List[int], criteria: Callable[[int], bool]) -> List[int
     return result
 
 def main():
-    print("Hello World")
+    print("Execution Successful")
 
 if __name__ == "__main__":
     main()
