@@ -1,5 +1,5 @@
-def filter_strings(strings, checking_criteria):
-    return [string for string in strings if checking_criteria(string)]
+def filter_strings(strings, checking_criteria_fn):
+    return [string for string in strings if checking_criteria_fn(string)]
 
 def display_result_on_console(array_of_results):
     for elements in array_of_results:
