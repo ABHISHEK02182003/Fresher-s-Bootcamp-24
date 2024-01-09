@@ -1,4 +1,4 @@
-# Fresher-s-Bootcamp-24
+# Loan Management System
 
 Loan Management System // Obtained from : Parabol.co [45 User story Examples to Inspire your Agile Team] // 
 
