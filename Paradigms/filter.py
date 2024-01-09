@@ -9,5 +9,5 @@ def check_starting_char_if_a(string):
     return string[0] == "A"
 
 if __name__ == "__main__":
-    sample_array_of_strings = ["Abhishek", "Sameer Trivedi", "Sankhanil Nayek", "Abhinav Modi", "Arravelly Keerthi "]
+    sample_array_of_strings = ["Abhishek", "Sameer Trivedi", "Sankhanil Nayek", "Ishan Madan", "Arravelly Keerthi "]
     display_result_on_console(filter_strings(sample_array_of_strings, check_starting_char_if_a))
