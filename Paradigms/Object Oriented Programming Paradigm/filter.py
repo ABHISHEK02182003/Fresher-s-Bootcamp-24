@@ -1,4 +1,4 @@
-class Filter:
+class StringListFilterController:
     def __init__(self, sample_input_array):
         self.strings = sample_input_array
 
@@ -15,26 +15,31 @@ class PredicateGenerator:
         return check_starting_char
 
 class ConsoleDisplayController:
-    results = []
-
-    @staticmethod
-    def display_results():
-        for result in ConsoleDisplayController.results:
+    _results = []
+    def set_results(cls, results_array): 
+        for result in results_array:
+            cls._results.append(result)
+    def display_results(cls): 
+        for result in cls._results:
             print(result)
         print("")
 
+
 def main():
-    sample_input_array = ["Abhishek", "Sameer Trivedi", "Sankhanil Nayek", "Abhinav", "Ishan Madan", "Arravelly Keerthi "]
-    
-    filter_instance = Filter(sample_input_array)
+    sample_input_array = ["Abhishek", "Sameer Trivedi", "Sankhanil Nayek", "Abhinav", "Ishan Madan"]
+
+    filter_instance = StringListFilterController(sample_input_array)
 
     predicate_instance = PredicateGenerator('A')
 
     checking_criteria = predicate_instance.create_starting_char_checker()
 
-    ConsoleDisplayController.results = filter_instance.filter_strings(filter_instance.strings, checking_criteria)
+    ConsoleDisplayController_instance = ConsoleDisplayController()
 
-    ConsoleDisplayController.display_results()
-    
+    ConsoleDisplayController_instance.set_results(filter_instance.filter_strings(filter_instance.strings, checking_criteria))
+
+    ConsoleDisplayController_instance.display_results()
+
 if __name__ == "__main__":
     main()
+    
