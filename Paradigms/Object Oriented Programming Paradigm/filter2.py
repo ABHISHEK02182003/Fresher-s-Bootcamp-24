@@ -1,4 +1,4 @@
-class Strategy:
+class StrategyManager:
     _char_checked = ""
 
     def set_char(self, char):
@@ -10,7 +10,7 @@ class Strategy:
 class StringListFilterController:
     def __init__(self, sample_input_array):
         self.strings = sample_input_array
-        self.strategy_instance = Strategy()
+        self.strategy_instance = StrategyManager()
 
     def set_strategy_char(self, char):
         self.strategy_instance.set_char(char)
