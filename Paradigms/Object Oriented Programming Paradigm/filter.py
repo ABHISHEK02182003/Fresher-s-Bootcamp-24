@@ -15,11 +15,11 @@ class PredicateGenerator:
         return check_starting_char
 
 class ConsoleDisplayController:
-    def __init__(self, array_of_results):
-        self.results = array_of_results
+    results = []
 
-    def display_results(self):
-        for result in self.results:
+    @staticmethod
+    def display_results():
+        for result in ConsoleDisplayController.results:
             print(result)
         print("")
 
@@ -32,10 +32,8 @@ def main():
 
     checking_criteria = predicate_instance.create_starting_char_checker()
 
-    filtered_strings = filter_instance.filter_strings(filter_instance.strings, checking_criteria)
+    ConsoleDisplayController.results = filter_instance.filter_strings(filter_instance.strings, checking_criteria)
 
-    display_instance = ConsoleDisplayController(filtered_strings)
-    display_instance.display_results()
-
+    ConsoleDisplayController.display_results()
 if __name__ == "__main__":
     main()
