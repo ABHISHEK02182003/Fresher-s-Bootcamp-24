@@ -6,12 +6,12 @@ class Filter:
         return [string for string in strings if checking_criteria(string)]
 
 class Predicate:
-    def __init__(self, start_char):
-        self.char = start_char
+    def __init__(self, char):
+        self.start_char = char
 
     def create_starting_char_checker(self):
         def check_starting_char(string):
-            return string[0].lower() == self.char.lower()
+            return string[0].lower() == self.start_char.lower()
         return check_starting_char
 
 class DisplayResultOnConsole:
