@@ -5,7 +5,7 @@ class Filter:
     def filter_strings(self, strings, checking_criteria):
         return [string for string in strings if checking_criteria(string)]
 
-class Predicate:
+class PredicateGenerator:
     def __init__(self, char):
         self.start_char = char
 
@@ -14,7 +14,7 @@ class Predicate:
             return string[0].lower() == self.start_char.lower()
         return check_starting_char
 
-class DisplayResultOnConsole:
+class ConsoleDisplayController:
     def __init__(self, array_of_results):
         self.results = array_of_results
 
@@ -28,13 +28,13 @@ def main():
 
     filter_instance = Filter(sample_input_array)
 
-    predicate_instance = Predicate('A')
+    predicate_instance = PredicateGenerator('A')
 
     checking_criteria = predicate_instance.create_starting_char_checker()
 
     filtered_strings = filter_instance.filter_strings(filter_instance.strings, checking_criteria)
 
-    display_instance = DisplayResultOnConsole(filtered_strings)
+    display_instance = ConsoleDisplayController(filtered_strings)
     display_instance.display_results()
 
 if __name__ == "__main__":
