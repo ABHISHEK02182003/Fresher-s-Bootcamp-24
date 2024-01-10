@@ -1,14 +1,19 @@
 class Strategy:
-    def __init__(self, char):
-        self.char_checked = char
+    _char_checked = ""
+
+    def set_char(self, char):
+        self._char_checked = char
 
     def check_starting_char(self, string):
-        return string[0].lower() == self.char_checked.lower()
+        return string[0].lower() == self._char_checked.lower()
 
 class StringListFilterController:
     def __init__(self, sample_input_array):
         self.strings = sample_input_array
-        self.strategy_instance = Strategy('A')
+        self.strategy_instance = Strategy()
+
+    def set_strategy_char(self, char):
+        self.strategy_instance.set_char(char)
 
     def filter_strings(self):
         return [string for string in self.strings if self.strategy_instance.check_starting_char(string)]
@@ -29,6 +34,7 @@ def main():
     sample_input_array = ["Abhishek", "Sameer Trivedi", "Sankhanil Nayek", "Abhinav", "Ishan Madan"]
 
     filter_instance = StringListFilterController(sample_input_array)
+    filter_instance.set_strategy_char('A')
 
     console_display_instance = ConsoleDisplayController()
 
