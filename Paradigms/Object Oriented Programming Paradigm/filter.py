@@ -24,8 +24,8 @@ class ConsoleDisplayController:
         print("")
 
 def main():
-    sample_input_array = ["Abhishek", "Sameer Trivedi", "Sankhanil Nayek", "Ishan Madan", "Arravelly Keerthi "]
-
+    sample_input_array = ["Abhishek", "Sameer Trivedi", "Sankhanil Nayek", "Abhinav", "Ishan Madan", "Arravelly Keerthi "]
+    
     filter_instance = Filter(sample_input_array)
 
     predicate_instance = PredicateGenerator('A')
@@ -35,5 +35,6 @@ def main():
     ConsoleDisplayController.results = filter_instance.filter_strings(filter_instance.strings, checking_criteria)
 
     ConsoleDisplayController.display_results()
+    
 if __name__ == "__main__":
     main()
