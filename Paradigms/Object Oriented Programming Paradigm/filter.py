@@ -7,11 +7,11 @@ class StringListFilterController:
 
 class PredicateGenerator:
     def __init__(self, char):
-        self.start_char = char
+        self.char_checked = char
 
     def create_starting_char_checker(self):
         def check_starting_char(string):
-            return string[0].lower() == self.start_char.lower()
+            return string[0].lower() == self.char_checked.lower()
         return check_starting_char
 
 class ConsoleDisplayController:
