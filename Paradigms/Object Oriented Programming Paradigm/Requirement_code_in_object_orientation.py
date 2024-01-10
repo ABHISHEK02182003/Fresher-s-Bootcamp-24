@@ -24,7 +24,7 @@ class DisplayResultOnConsole:
         print("")
 
 def main():
-    sample_input_array = ["Apple", "Banana", "Orange", "Grape"]
+    sample_input_array = ["Abhishek", "Sameer Trivedi", "Sankhanil Nayek", "Ishan Madan", "Arravelly Keerthi "]
 
     # Example usage
     filter_instance = Filter(sample_input_array)
