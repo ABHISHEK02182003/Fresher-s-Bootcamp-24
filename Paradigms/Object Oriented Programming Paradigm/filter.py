@@ -26,19 +26,14 @@ class DisplayResultOnConsole:
 def main():
     sample_input_array = ["Abhishek", "Sameer Trivedi", "Sankhanil Nayek", "Ishan Madan", "Arravelly Keerthi "]
 
-    # Example usage
     filter_instance = Filter(sample_input_array)
 
-    # Create a predicate with the starting character 'A'
     predicate_instance = Predicate('A')
 
-    # Use the predicate to create a checking criteria
     checking_criteria = predicate_instance.create_starting_char_checker()
 
-    # Filter the strings based on the checking criteria
     filtered_strings = filter_instance.filter_strings(filter_instance.strings, checking_criteria)
 
-    # Display the results on the console
     display_instance = DisplayResultOnConsole(filtered_strings)
     display_instance.display_results()
 
