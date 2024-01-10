@@ -1,7 +1,6 @@
 class Strategy:
     def __init__(self, char):
         self.char_checked = char
-        print('Hi')
 
     def check_starting_char(self, string):
         return string[0].lower() == self.char_checked.lower()
