@@ -1,10 +1,6 @@
 from abc import ABC, abstractmethod
 
 class DocumentPart(ABC):
-    # def __init__ (self, content):
-    #     self.name = content[0]
-    #     self.position = content[1]
-    
     @abstractmethod
     def paint(self):
         pass
