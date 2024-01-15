@@ -36,7 +36,7 @@ class Thread:
 
 class Observer(ThreadObserver):
     def update(self, thread, message):
-        print(f"Observer received: Thread {thread.id} - {message}")
+        thread_status = message
 
 thread_instance = Thread(1, 0)
 observer_instance = Observer()
