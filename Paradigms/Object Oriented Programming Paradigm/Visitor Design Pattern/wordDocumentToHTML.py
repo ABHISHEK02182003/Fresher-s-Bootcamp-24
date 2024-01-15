@@ -118,7 +118,7 @@ class HTMLConverter(ConverterInterface):
     def convert(self, footer_item):
         print("footer converted")
 
-if __name__ == "_main_":
+def main:
     header_object = Header()
     paragraph_object = Paragraph()
     hyperlink_object = HyperLink()
@@ -129,3 +129,6 @@ if __name__ == "_main_":
     html_converter = HTMLConverter()
 
     word_document1.convert(html_converter)
+    
+if __name__ == "_main_":
+    main()
