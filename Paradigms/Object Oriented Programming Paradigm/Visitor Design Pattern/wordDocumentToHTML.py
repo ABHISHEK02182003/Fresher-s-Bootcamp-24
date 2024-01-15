@@ -119,12 +119,12 @@ class HTMLConverter(ConverterInterface):
         print("footer converted")
 
 if __name__ == "_main_":
-    header1 = Header()
-    paragraph1 = Paragraph()
-    hyperlink1 = HyperLink()
-    footer1 = Footer()
+    header_object = Header()
+    paragraph_object = Paragraph()
+    hyperlink_object = HyperLink()
+    footer_object = Footer()
 
-    document_part_list = [header1, paragraph1, hyperlink1, footer1]
+    document_part_list = [header_object, paragraph_object, hyperlink_object, footer_object]
     word_document1 = WordDocument(document_part_list)
     html_converter = HTMLConverter()
 
