@@ -24,15 +24,15 @@ class Thread:
 
     def start_execution(self):
         self.status = "Running"
-        self.notify("Thread started its execution")
+        self.notify(self.status)
 
     def put_to_sleep(self):
         self.status = "Sleeping"
-        self.notify("Thread has been put to sleep")
+        self.notify(self.status)
 
     def abort_execution(self):
         self.status = "Aborted"
-        self.notify("Thread execution aborted")
+        self.notify(self.status)
 
 class Observer(ThreadObserver):
     def update(self, thread, message):
