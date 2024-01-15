@@ -23,10 +23,10 @@ class Header(DocumentPart):
         self.title = ""
 
     def paint(self):
-        print("paint() called from header")
+        print("Painted Header")
 
     def save(self):
-        print("save() called from header")
+        print("Saved Header")
 
     def convert(self, i_converter):
         i_converter.convert(self)
@@ -38,10 +38,10 @@ class Paragraph(DocumentPart):
         self.lines = ""
 
     def paint(self):
-        print("paint() called from paragraph")
+        print("Painted Paragraph")
 
     def save(self):
-        print("save() called from paragraph")
+        print("Saved Paragraph")
 
     def convert(self, i_converter):
         i_converter.convert(self)
@@ -53,10 +53,10 @@ class HyperLink(DocumentPart):
         self.text = ""
 
     def paint(self):
-        print("paint() called from hyperlink")
+        print("Painted Hyper Link")
 
     def save(self):
-        print("save() called from hyperlink")
+        print("Saved Hyper Link")
 
     def convert(self, i_converter):
         i_converter.convert(self)
@@ -67,10 +67,10 @@ class Footer(DocumentPart):
         self.text = ""
 
     def paint(self):
-        print("paint() called from footer")
+        print("Painted Footer")
 
     def save(self):
-        print("save() called from footer")
+        print("Saved Footer")
 
     def convert(self, i_converter):
         i_converter.convert(self)
