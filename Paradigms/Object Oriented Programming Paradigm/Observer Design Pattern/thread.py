@@ -1,26 +1,15 @@
 import random
 
-COUNTER = 0
-PRIORITY = [0, 1, 2, 3, 4, 5]
-
 class ThreadObserver:
     def update(self, thread, message):
         pass
 
 class Thread:
-    def __init__(self):
+    def __init__(self, id, priority):
         global COUNTER
-        self.id = COUNTER + 1
-        COUNTER += 1
-
-        global PRIORITY
-        self.priority = random.choice(PRIORITY)
-        PRIORITY.remove(self.priority)
-
+        self.id = id
+        self.priority = priority
         self.status = "Created"
-        print("Thread Created")
-        print(self.priority)
-        
         self.observers = []
 
     def subscribe(self, observer):
@@ -36,23 +25,20 @@ class Thread:
     def start_execution(self):
         self.status = "Running"
         self.notify("Thread started its execution")
-        print("Thread started its execution")
 
     def put_to_sleep(self):
         self.status = "Sleeping"
         self.notify("Thread has been put to sleep")
-        print("Thread has been put to sleep")
 
     def abort_execution(self):
         self.status = "Aborted"
         self.notify("Thread execution aborted")
-        print("Thread execution aborted")
 
 class Observer(ThreadObserver):
     def update(self, thread, message):
         print(f"Observer received: Thread {thread.id} - {message}")
 
-thread_instance = Thread()
+thread_instance = Thread(1, 0)
 observer_instance = Observer()
 
 thread_instance.subscribe(observer_instance)
