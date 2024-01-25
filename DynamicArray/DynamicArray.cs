@@ -30,7 +30,7 @@ public class DynamicArray<T>
             throw new ArgumentOutOfRangeException("index");
         }
 
-        if (size >= capacity)
+        if (index >= capacity)
         {
             ResizeArray(index + 1);
         }
