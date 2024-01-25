@@ -30,9 +30,9 @@ public class DynamicArray<T>
             throw new ArgumentOutOfRangeException("index");
         }
 
-        if (size == capacity)
+        if (size >= capacity)
         {
-            ResizeArray();
+            ResizeArray(index + 1);
         }
 
         for (int i = size; i > index; i--)
@@ -41,7 +41,7 @@ public class DynamicArray<T>
         }
 
         array[index] = item;
-        size++;
+        size = Math.Max(size, index+1);
     }
 
     private void ResizeArray()
