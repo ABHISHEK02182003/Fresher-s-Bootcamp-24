@@ -54,7 +54,12 @@ public class DynamicArray<T>
     
     public T this[int index]
     {
-        get { return array[index]; }
+        get { 
+        if ( index > size)
+        {
+            throw new Exception("Index accessed is not present in the Array");
+        }
+        return array[index]; }
     }
 
 }
