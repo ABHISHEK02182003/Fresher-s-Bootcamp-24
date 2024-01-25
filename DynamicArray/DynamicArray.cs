@@ -5,6 +5,7 @@ public class DynamicArray<T>
     private T[] array;
     private int size; 
     private int capacity;
+    private count = 0;
 
     public DynamicArray(int initialCapacity)
     {
@@ -20,7 +21,7 @@ public class DynamicArray<T>
 
     public int Count
     {
-        get { return size; }
+        get { return count; }
     }
 
     public void Add(int index, T item)
@@ -42,6 +43,8 @@ public class DynamicArray<T>
 
         array[index] = item;
         size = Math.Max(size, index+1);
+
+        count++
     }
 
     private void ResizeArray()
