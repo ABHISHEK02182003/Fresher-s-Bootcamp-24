@@ -25,7 +25,7 @@ public class DynamicArray<T>
 
     public void Add(int index, T item)
     {
-        if (index < 0 || index > size)
+        if (index < 0)
         {
             throw new ArgumentOutOfRangeException("index");
         }
