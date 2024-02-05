@@ -9,10 +9,10 @@ TEST SPECIFICATION :
 	- "" or "1" or "1,2"
 
 2. Handle Empty strings 
-        "" -> 0
+	"" -> 0
 
 3. Method should be able to handle new lines : 
-        ("1\n2, 3") -> 6
+	("1\n2, 3") -> 6
 
 4. Invalid inputs must be handled : 
         ("1,\n") -> throw an exception
