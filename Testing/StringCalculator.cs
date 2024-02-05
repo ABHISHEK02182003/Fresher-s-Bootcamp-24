@@ -54,8 +54,7 @@ public class DelimiterProvider : IDelimiterProvider
             return customDelimiterSection.ToCharArray();
         }
 
-        // If no valid custom delimiters are found, you can return a default delimiter
-        return new char[] { ';' }; // You can replace this with the default delimiter of your choice
+        return new char[] { ';' };
     }
 }
 
@@ -64,9 +63,12 @@ public class NumberParser : INumberParser
     public int[] ParseNumbers(string numbers)
     {
         string numbersSection = GetNumbersSection(numbers);
-        return numbersSection.Split(GetDelimiters(numbers), StringSplitOptions.RemoveEmptyEntries)
-            .Select(int.Parse)
-            .ToArray();
+        char[] delimiters = GetDelimiters(numbers);
+
+        var tokens = numbersSection.Split(delimiters, StringSplitOptions.RemoveEmptyEntries)
+            .SelectMany(token => token.Split(delimiters, StringSplitOptions.RemoveEmptyEntries));
+
+        return tokens.Select(int.Parse).ToArray();
     }
 
     private char[] GetDelimiters(string numbers)
