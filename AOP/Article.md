@@ -27,7 +27,7 @@ public Document[] GetDocuments(string format)
 }
 ```
 
-# The Revelation: Aspect-Oriented Programming (AOP)
+## The Revelation: Aspect-Oriented Programming (AOP)
 - Enter Aspect-Oriented Programming (AOP), a paradigm that promises liberation from code tangling and duplication. AOP enables the separation of concerns, allowing the core functionality of a method to remain pristine while weaving aspects, such as logging, into the code.
 ## AOP via Decorators: Taming Cross-Cutting Concerns
 - In my exploration of AOP, I initially delved into the world of decorators. Here, a logging decorator was crafted to encapsulate the logging logic, leaving the original method untouched.
