@@ -29,7 +29,7 @@ public Document[] GetDocuments(string format)
 
 ## The Revelation: Aspect-Oriented Programming (AOP)
 - Enter Aspect-Oriented Programming (AOP), a paradigm that promises liberation from code tangling and duplication. AOP enables the separation of concerns, allowing the core functionality of a method to remain pristine while weaving aspects, such as logging, into the code.
-## AOP via Decorators: Taming Cross-Cutting Concerns
+### AOP via Decorators: Taming Cross-Cutting Concerns
 - In my exploration of AOP, I initially delved into the world of decorators. Here, a logging decorator was crafted to encapsulate the logging logic, leaving the original method untouched.
 
 ```csharp
@@ -56,7 +56,7 @@ public class LoggingAwareDocumentSource : IDocumentSource
 }
 ```
 - The code above, free from the entanglement of logging concerns, heralded a significant improvement. However, concerns lingered, such as specificity and missing details.
-## Generic Interface and Attributes
+### Generic Interface and Attributes
 - To address specificity issues, I ventured into the realm of generic interfaces, creating a flexible structure for command and query handlers. Attributes, like LogCount, were introduced to annotate properties, enriching the logging details.
 
 ```csharp
@@ -88,7 +88,7 @@ public interface IQueryHandler<TQuery, TResult>
 }
 ```
 - This approach provided a balance between flexibility and verbosity, addressing some of the limitations encountered.
-## Performance Optimization and Compile-Time Weaving
+### Performance Optimization and Compile-Time Weaving
 - The journey into AOP was not without its challenges. Reflection, employed for extracting logging information, raised performance concerns. To counter this, I discovered an optimization approach, where proxies were generated during creation, minimizing the runtime performance impact.
 
 	```csharp
@@ -97,7 +97,7 @@ public interface IQueryHandler<TQuery, TResult>
 	```
 - Additionally, the revelation of compile-time weaving opened new horizons. Tools like PostSharp facilitated the integration of aspects at compile time, offering efficiency and elegance in code design.
 
-## The Present: AOP's Impact on Code Elegance
+### The Present: AOP's Impact on Code Elegance
 - Today, my code stands transformed. AOP has empowered me to reclaim the clarity and simplicity of my methods, liberating them from the encumbrance of cross-cutting concerns. The use of decorators, generic interfaces, attributes, and compile-time weaving has not only addressed the challenges but elevated the elegance of my code.
 
 - As I reflect on this journey, AOP emerges as a beacon of code design, guiding me toward modular, maintainable, and readable solutions. My target audience, well-versed in the intricacies of software development, will find in AOP a powerful ally in the pursuit of clean, efficient, and elegant code.
