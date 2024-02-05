@@ -119,16 +119,6 @@ public class LogCountAttribute : Attribute
 ```
 
 ``` csharp
-public class GetDocumentsResult
-{
-    [LogCount("Number of Documents")] 
-    public Document[] Documents { get; private set; }
-
-    public GetDocumentsResult(Document[] documents) => Documents = documents;
-}
-```
-
-``` csharp
 public static class LoggingAspect
 {
     public static void LogSuccess(object result)
@@ -146,6 +136,16 @@ public static class LoggingAspect
     public static void LogError(Exception ex) => Console.WriteLine($"Error: {ex.Message}");
 }
 
+```
+
+``` csharp
+public class GetDocumentsResult
+{
+    [LogCount("Number of Documents")] 
+    public Document[] Documents { get; private set; }
+
+    public GetDocumentsResult(Document[] documents) => Documents = documents;
+}
 ```
 
 
