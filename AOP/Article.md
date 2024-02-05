@@ -105,4 +105,44 @@ public interface IQueryHandler<TQuery, TResult>
 - The adventure continues, with the promise of further exploration into compile-time optimizations and the evolving landscape of AOP tools. The path ahead is illuminated by the principles of separation of concerns, flexibility, and a commitment to crafting code that not only functions flawlessly but also resonates with the artistry of well-designed software.
 
 
+``` csharp 
+
+using System;
+
+[AttributeUsage(AttributeTargets.Property)]
+public class LogCountAttribute : Attribute
+{
+    public string Name { get; }
+
+    public LogCountAttribute(string name) => Name = name;
+}
+
+public class GetDocumentsResult
+{
+    [LogCount("Number of Documents")] public Document[] Documents { get; private set; }
+
+    public GetDocumentsResult(Document[] documents) => Documents = documents;
+}
+
+public static class LoggingAspect
+{
+    public static void LogSuccess(object result)
+    {
+        foreach (var property in result.GetType().GetProperties())
+        {
+            if (Attribute.GetCustomAttribute(property, typeof(LogCountAttribute)) is LogCountAttribute logCount)
+            {
+                Console.WriteLine($"{logCount.Name}: {((Array)property.GetValue(result)).Length}");
+            }
+        }
+        Console.WriteLine("Operation successful");
+    }
+
+    public static void LogError(Exception ex) => Console.WriteLine($"Error: {ex.Message}");
+}
+
+```
+
+
+
 
