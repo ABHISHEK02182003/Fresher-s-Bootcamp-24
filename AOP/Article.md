@@ -1,153 +1,155 @@
 # A Journey into Aspect-Oriented Programming (AOP)
 
-- As an amateur developer navigating the vast landscape of Object-Oriented Programming (OOP), I found myself entangled in the web of code duplication and tangling. My code, once pristine and modular, began to accumulate redundant logic, especially when dealing with cross-cutting concerns like logging. The journey that ensued led me to the enlightening realm of Aspect-Oriented Programming (AOP), transforming the way I perceive and structure my code.
+## Unraveling Code Duplication and Tangling in Object Validation
 
-## The Prelude: Code Duplication and Tangling
+As a budding developer navigating the complexities of Object-Oriented Programming (OOP), I found myself entangled in a web of code duplication and tangling while dealing with object validation. The once sleek and modular validation logic began accumulating redundancies, especially when handling custom validation attributes. This journey led me to the illuminating realm of Aspect-Oriented Programming (AOP), reshaping how I structure and maintain my validation code.
 
-- Before embracing AOP, my code was drowning in a sea of redundant logging logic. Consider a simple scenario where I needed to obtain documents from a database. The straightforward method quickly turned into a maze of try-catch blocks and logging statements, violating the Single Responsibility Principle and obscuring the primary purpose of the method.
+### The Prelude: Code Duplication and Tangling in Object Validation
 
-```csharp
-public Document[] GetDocuments(string format)
-{
-   try
-    {
-        using (var context = CreateEFContext())
-        {
-            var documents = context.Documents.Where(c => c.Name.EndsWith("." + format)).ToArray();
-
-            logger.LogSuccess("Obtained " + documents.Length + " documents of type " + format);
-            return documents;
-        }
-    }
-    catch (Exception ex)
-    {
-        logger.LogError("Error obtaining documents of type " + format, ex);
-        throw;
-    }
-}
-```
-
-## The Revelation: Aspect-Oriented Programming (AOP)
-- Enter Aspect-Oriented Programming (AOP), a paradigm that promises liberation from code tangling and duplication. AOP enables the separation of concerns, allowing the core functionality of a method to remain pristine while weaving aspects, such as logging, into the code.
-### AOP via Decorators: Taming Cross-Cutting Concerns
-- In my exploration of AOP, I initially delved into the world of decorators. Here, a logging decorator was crafted to encapsulate the logging logic, leaving the original method untouched.
+Before embracing AOP, my object validation code, exemplified by a simple `Device` class, suffered from code duplication and tangling. Custom validation attributes such as `IdValidation` and `CodeRange` were scattered across properties, leading to a loss of clarity and violating the Single Responsibility Principle.
 
 ```csharp
-public class LoggingAwareDocumentSource : IDocumentSource 
+class Device
 {
-    private readonly IDocumentSource  decoratedDocumentSource;
+    [IdValidation(ErrorMessage = "ID Property Requires Value")]
+    public string Id { get; set; }
 
-    public Document[] GetDocuments(string format)
-    {
-        try
-        {
-            var documents = decoratedDocumentSource.GetDocuments(format);
+    [CodeRange(10, 100, ErrorMessage = "Code value must be in the range of 10 - 100")]
+    public int Code { get; set; }
 
-            logger.LogSuccess("Obtained " + documents.Length + " documents of type " + format);
-
-            return documents;
-        }
-        catch (Exception ex)
-        {
-            logger.LogError("Error obtaining documents of type " + format, ex);
-            throw;
-        }
-    }
+    [MaxLength(10, ErrorMessage = "Maximum of 100 Characters are allowed")]
+    public string Description { get; set; }
 }
 ```
-- The code above, free from the entanglement of logging concerns, heralded a significant improvement. However, concerns lingered, such as specificity and missing details.
-### Generic Interface and Attributes
-- To address specificity issues, I ventured into the realm of generic interfaces, creating a flexible structure for command and query handlers. Attributes, like LogCount, were introduced to annotate properties, enriching the logging details.
+
+### The Revelation: Aspect-Oriented Programming (AOP)
+
+Enter Aspect-Oriented Programming (AOP), a paradigm that promises liberation from code tangling and duplication. AOP enables the separation of concerns, allowing the core functionality of a class to remain pristine while weaving aspects, such as validation, into the code.
+
+### AOP via Decorators: Taming Cross-Cutting Concerns in Object Validation
+
+In my exploration of AOP, I delved into the world of decorators to encapsulate object validation concerns. A validation decorator was crafted to handle the validation logic, leaving the original class untouched.
 
 ```csharp
-public interface IQueryHandler<TQuery, TResult>
+public class ValidationDecorator<T>
 {
-    TResult Handle(TQuery query);
-}
+    private readonly T _decoratedObject;
 
-	public class LoggingAwareQueryHandler<TQuery, TResult> : IQueryHandler<TQuery, TResult>
-{
-    private readonly IQueryHandler<TQuery, TResult> decoratedHandler;
-
-    public TResult Handle(TQuery query)
+    public ValidationDecorator(T decoratedObject)
     {
-        try
-        {
-            var result = decoratedHandler.Handle(query);
-
-            logger.LogSuccess(...); // Logging enriched with attributes
-
-            return result;
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(..., ex);
-            throw;
-        }
+        _decoratedObject = decoratedObject;
     }
-}
-```
-- This approach provided a balance between flexibility and verbosity, addressing some of the limitations encountered.
-### Performance Optimization and Compile-Time Weaving
-- The journey into AOP was not without its challenges. Reflection, employed for extracting logging information, raised performance concerns. To counter this, I discovered an optimization approach, where proxies were generated during creation, minimizing the runtime performance impact.
 
-	```csharp
-	// Optimal code generation during proxy creation
-	var value = query.Format;
-	```
-- Additionally, the revelation of compile-time weaving opened new horizons. Tools like PostSharp facilitated the integration of aspects at compile time, offering efficiency and elegance in code design.
-
-### The Present: AOP's Impact on Code Elegance
-- Today, my code stands transformed. AOP has empowered me to reclaim the clarity and simplicity of my methods, liberating them from the encumbrance of cross-cutting concerns. The use of decorators, generic interfaces, attributes, and compile-time weaving has not only addressed the challenges but elevated the elegance of my code.
-
-- As I reflect on this journey, AOP emerges as a beacon of code design, guiding me toward modular, maintainable, and readable solutions. My target audience, well-versed in the intricacies of software development, will find in AOP a powerful ally in the pursuit of clean, efficient, and elegant code.
-
-- The adventure continues, with the promise of further exploration into compile-time optimizations and the evolving landscape of AOP tools. The path ahead is illuminated by the principles of separation of concerns, flexibility, and a commitment to crafting code that not only functions flawlessly but also resonates with the artistry of well-designed software.
-
-
-``` csharp 
-
-using System;
-
-[AttributeUsage(AttributeTargets.Property)]
-public class LogCountAttribute : Attribute
-{
-    public string Name { get; }
-
-    public LogCountAttribute(string name) => Name = name;
-}
-```
-
-``` csharp
-public static class LoggingAspect
-{
-    public static void LogSuccess(object result)
+    public bool Validate(out List<string> errors)
     {
-        foreach (var property in result.GetType().GetProperties())
+        var validationResults = new List<ValidationResult>();
+
+        var validationContext = new ValidationContext(_decoratedObject, null, null);
+
+        bool isValid = Validator.TryValidateObject(_decoratedObject, validationContext, validationResults, true);
+
+        errors = new List<string>();
+
+        if (!isValid)
         {
-            if (Attribute.GetCustomAttribute(property, typeof(LogCountAttribute)) is LogCountAttribute logCount)
+            foreach (var validationResult in validationResults)
             {
-                Console.WriteLine($"{logCount.Name}: {((Array)property.GetValue(result)).Length}");
+                errors.Add(validationResult.ErrorMessage);
             }
         }
-        Console.WriteLine("Operation successful");
+
+        return isValid;
     }
-
-    public static void LogError(Exception ex) => Console.WriteLine($"Error: {ex.Message}");
 }
-
 ```
 
-``` csharp
-public class GetDocumentsResult
+### Applying Validation Aspect to Device Class
+
+The `Device` class is now free from the entanglement of validation concerns, thanks to the validation decorator.
+
+```csharp
+Device deviceObject = new Device { Id = "", Code = 5, Description = "Valid Description" };
+
+var validationDecorator = new ValidationDecorator<Device>(deviceObject);
+bool isValid = validationDecorator.Validate(out List<string> errors);
+
+if (!isValid)
 {
-    [LogCount("Number of Documents")] 
-    public Document[] Documents { get; private set; }
-
-    public GetDocumentsResult(Document[] documents) => Documents = documents;
+    foreach (string item in errors)
+    {
+        Console.WriteLine(item);
+    }
 }
 ```
 
+The code above, free from the complexities of validation attributes, reflects a significant improvement in clarity and maintainability.
 
+### Enhancing Validation with Compile-Time Weaving
 
+To further enhance the elegance of validation, consider exploring compile-time weaving tools like PostSharp. These tools enable the integration of aspects, such as validation, at compile time, offering efficiency and cleanliness in code design.
 
+## The Present: AOP's Impact on Object Validation Elegance
+
+Today, my object validation code stands transformed. AOP has empowered me to reclaim the clarity and simplicity of my classes, liberating them from the encumbrance of validation concerns. The use of decorators and the prospect of compile-time weaving has not only addressed the challenges but elevated the elegance of my code.
+
+As I reflect on this journey, AOP emerges as a beacon of code design, guiding me toward modular, maintainable, and readable solutions in the realm of object validation. The adventure continues, with the promise of further exploration into compile-time optimizations and the evolving landscape of AOP tools, all while adhering to the principles of separation of concerns and crafting code that resonates with the artistry of well-designed software.
+
+### Expanding Horizons: Run-Time Weaving in Object Validation
+
+While compile-time weaving offers significant advantages in terms of efficiency and cleanliness, it's essential to explore the alternative approach of run-time weaving for a more dynamic and flexible integration of aspects, such as validation.
+
+#### Dynamics of Run-Time Weaving
+
+Run-time weaving involves modifying the behavior of classes and methods dynamically during the execution of the program. Libraries like AspectJ provide a powerful toolset for run-time weaving, allowing developers to inject aspects into the code at runtime.
+
+#### Applying Run-Time Weaving to Object Validation
+
+Let's consider how run-time weaving can be applied to our object validation scenario. Instead of integrating validation aspects at compile time, we can dynamically weave them into the code during program execution.
+
+```csharp
+public class RunTimeValidationAspect
+{
+    public static bool Validate(object obj, out List<string> errors)
+    {
+        var validationResults = new List<ValidationResult>();
+
+        var validationContext = new ValidationContext(obj, null, null);
+
+        bool isValid = Validator.TryValidateObject(obj, validationContext, validationResults, true);
+
+        errors = new List<string>();
+
+        if (!isValid)
+        {
+            foreach (var validationResult in validationResults)
+            {
+                errors.Add(validationResult.ErrorMessage);
+            }
+        }
+
+        return isValid;
+    }
+}
+```
+
+#### Dynamic Application of Run-Time Weaving
+
+```csharp
+Device deviceObject = new Device { Id = "", Code = 5, Description = "Valid Description" };
+
+bool isValid = RunTimeValidationAspect.Validate(deviceObject, out List<string> errors);
+
+if (!isValid)
+{
+    foreach (string item in errors)
+    {
+        Console.WriteLine(item);
+    }
+}
+```
+
+This dynamic application of run-time weaving allows for more flexibility. Validation aspects can be added or modified without recompiling the entire codebase, providing a versatile solution for evolving validation requirements.
+
+### The Synergy of Compile-Time and Run-Time Weaving
+
+In the landscape of Aspect-Oriented Programming, the synergy between compile-time and run-time weaving offers a holistic approach to code design. While compile-time weaving ensures efficiency and cleanliness, run-time weaving provides dynamic adaptability. Striking the right balance between these two weaving strategies empowers developers to craft code that is not only efficient but also adaptable to changing needs. The journey into Object Validation continues, guided by the principles of separation of concerns and a commitment to creating software that transcends the ordinary.
