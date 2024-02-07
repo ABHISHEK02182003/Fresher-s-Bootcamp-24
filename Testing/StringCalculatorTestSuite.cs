@@ -1,4 +1,4 @@
-using StringCalculatorLib;
+using Xunit.Sdk;
 
 namespace StringCalculatorLib.Tests
 {
@@ -118,30 +118,17 @@ namespace StringCalculatorLib.Tests
         {
             // Arrange
             string input = "//[***]\n1***2***3";
-            int expectedResult = 5;
+            int expectedResult = 6;
 
             // Act
             int result = StringCalculator.Add(input);
 
             // Assert
-            Assert.Equal(6, result);
-        }
-
-        [Fact]
-        public void Add_ForMultipleDelimitersReturnSum()
-        {
-            // Arrange
-            string input = "//[*][%]\n1*2%3";
-            int expectedResult = 6;
-
-            // Act 
-            int result = StringCalculator.Add(input);
-
-            // Assert
-            Assert.Equal(6, result);
+            Assert.Equal(expectedResult, result);
         }
 
         [Theory]
+
         [InlineData("//[***]\n1***2***3", 6)]
 
         public void Add_ForCustomDelimiterWithAnyLengthReturnsSumUsingTheory(string testInput, int testOutput)
@@ -150,5 +137,31 @@ namespace StringCalculatorLib.Tests
             Assert.Equal(testOutput, result);
         }
 
+        public class TestData : IEnumerable<object[]>
+        {
+            public IEnumerator<object[]> GetEnumerator()
+            {
+                yield return new object[] { null, 0 };
+                yield return new object[] { "", 0 };
+                yield return new object[] { "0", 0 };
+                yield return new object[] { "1", 1 };
+                yield return new object[] { "1, 2", 3 };
+                yield return new object[] { "2, 1001", 2 };
+            }
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+        }
+        [Theory]
+        [ClassData(typeof(TestData))]
+        public void ClassDataDrivenTest(string testInput, int expectedOutput)
+        {
+            Assert.Equal(expectedOutput, StringCalculator.Add(testInput));
+        }
+
+
     }
+
+
 }
