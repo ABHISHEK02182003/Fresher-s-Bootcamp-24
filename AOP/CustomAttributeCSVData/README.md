@@ -1,6 +1,3 @@
-Certainly! Below is a basic `README.md` file in Markdown format for the provided use case:
-
-```markdown
 # CSV Data Attribute Example
 
 This is a simple example demonstrating the usage of a custom CSV data attribute for parameterized testing in C# with xUnit.
@@ -23,7 +20,6 @@ public void CsvTestMethod(int id, string name, double value)
     // Assert or perform other test actions
 }
 ```
-
 ## How to Run
 
 1. Ensure you have [.NET Core SDK](https://dotnet.microsoft.com/download) installed.
