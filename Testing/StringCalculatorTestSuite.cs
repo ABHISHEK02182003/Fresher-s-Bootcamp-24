@@ -141,5 +141,14 @@ namespace StringCalculatorLib.Tests
             Assert.Equal(6, result);
         }
 
+        [Theory]
+        [InlineData("//[***]\n1***2***3", 6)]
+
+        public void Add_ForCustomDelimiterWithAnyLengthReturnsSumUsingTheory(string testInput, int testOutput)
+        {
+            int result = StringCalculator.Add(testInput);
+            Assert.Equal(testOutput, result);
+        }
+
     }
 }
