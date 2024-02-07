@@ -6,7 +6,7 @@ In the realm of Object-Oriented Programming (OOP), the struggle with code duplic
 
 ### The Prelude: Code Duplication and Tangling in Object Validation
 
-Before diving into AOP, my object validation code, as seen in the `Device` class, suffered from code duplication and tangling. Custom validation attributes like `IdValidation` and `CodeRange` were scattered, violating the Single Responsibility Principle.
+Before embracing Aspect-Oriented Programming (AOP), my approach to object validation in the `Device` class was less organized. I didn't leverage custom attributes like `IdValidation` and `CodeRange`, leading to a lack of structure and violating the Single Responsibility Principle. The absence of these attributes made the validation logic more scattered and harder to manage. The subsequent introduction of AOP and custom attributes played a pivotal role in bringing order and cleanliness to the validation process.
 
 ```csharp
 class Device
